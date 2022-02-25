@@ -1,0 +1,86 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            32:13:e8:2b:55:57:51:70:3e:ed:0d:b9:41:e2:bc:5b
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=Orca CA
+        Validity
+            Not Before: Feb 25 18:27:14 2022 GMT
+            Not After : May 30 18:27:14 2024 GMT
+        Subject: CN=server
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:c4:c2:cb:e0:87:fa:f0:ae:47:a9:82:40:31:01:
+                    93:62:95:be:3b:12:1b:aa:35:ab:50:54:3f:c0:f7:
+                    06:55:94:18:61:8f:20:ee:96:ac:67:40:d9:3e:db:
+                    c0:6a:35:12:28:88:f5:25:c7:87:e4:0c:4a:4c:f4:
+                    12:8d:82:99:39:de:67:a2:19:ba:53:c8:95:64:1c:
+                    7f:8e:b5:4b:9d:02:c6:2c:95:bc:0c:30:f1:b4:bb:
+                    0e:4c:07:0d:87:b8:4f:f2:ff:6e:b6:7c:b1:78:70:
+                    e8:6d:38:33:15:1a:2b:f2:9d:cd:bc:5a:77:60:38:
+                    de:d8:8d:eb:67:f5:d6:52:7c:b6:c6:ec:39:7e:2d:
+                    5b:5d:70:ec:7d:c8:15:81:ef:5c:77:14:3c:0a:92:
+                    a9:11:44:83:23:0d:85:a0:56:f9:21:89:41:01:04:
+                    24:6d:11:5e:9b:00:31:78:8a:7b:82:c3:2a:c7:97:
+                    22:94:36:e2:b4:3f:ef:01:f3:c1:53:5f:56:34:0b:
+                    10:38:b9:46:9f:84:54:7a:34:60:c9:41:27:b7:11:
+                    92:a0:3c:ee:a6:2c:eb:97:93:9e:e7:7f:6c:85:41:
+                    16:7e:f8:6c:2f:ca:06:82:6c:43:5f:95:17:e5:bf:
+                    fd:ab:2e:c1:3c:12:79:2b:22:bd:b3:6e:45:8e:ef:
+                    b7:57
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                8B:1E:86:D3:E1:D5:EB:83:37:EA:85:AB:32:7D:32:E6:54:01:CD:B4
+            X509v3 Authority Key Identifier: 
+                keyid:FC:A9:EF:73:80:E7:21:D2:BF:B4:D6:A1:7E:74:02:40:35:2C:96:CD
+                DirName:/CN=Orca CA
+                serial:A6:FB:FA:65:8C:42:8B:58
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                DNS:server
+    Signature Algorithm: sha256WithRSAEncryption
+         8c:5f:0e:b9:be:a7:33:4a:53:9f:d8:6e:7a:24:0e:dd:57:26:
+         e1:3d:97:1d:ea:bd:fe:65:e9:13:39:66:ad:92:87:8b:9f:c0:
+         32:03:93:a8:09:17:a7:fb:1a:f0:73:0c:5e:c8:dc:f4:77:69:
+         54:8e:31:a1:e4:9d:ca:75:a3:d9:3a:bf:13:00:b2:ad:66:f9:
+         36:5a:66:b3:9a:44:cd:c6:97:26:a6:fa:f5:e8:d3:ad:e8:2e:
+         0b:c0:89:7c:9f:b7:3f:cb:c2:db:9e:e9:83:00:fa:50:79:fd:
+         97:b0:9a:3d:27:25:24:26:8a:c7:4c:c3:fb:2c:41:c6:55:b2:
+         91:81:9d:08:4c:05:46:eb:b3:7d:fc:f9:45:86:77:f9:36:f5:
+         4b:ed:db:46:64:d8:79:f3:4b:8b:cd:d7:c5:b2:5d:06:c7:e3:
+         e5:06:1c:2b:1e:55:f7:ba:a8:e8:da:18:c5:fd:d6:c6:05:d1:
+         3a:d3:76:ed:08:b3:09:0b:76:ae:c5:c9:f5:40:94:f6:8e:96:
+         7a:57:e4:bb:ed:50:d9:04:c7:14:3b:5b:15:e1:0b:0b:a8:f6:
+         4a:ed:86:3e:b6:f5:4d:d0:fe:c4:e0:9b:12:db:cf:ea:95:6d:
+         9a:a2:a3:85:da:c2:d7:7f:3d:8b:be:4e:98:7b:96:f1:f7:36:
+         08:25:83:34
+-----BEGIN CERTIFICATE-----
+MIIDVDCCAjygAwIBAgIQMhPoK1VXUXA+7Q25QeK8WzANBgkqhkiG9w0BAQsFADAS
+MRAwDgYDVQQDDAdPcmNhIENBMB4XDTIyMDIyNTE4MjcxNFoXDTI0MDUzMDE4Mjcx
+NFowETEPMA0GA1UEAwwGc2VydmVyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+CgKCAQEAxMLL4If68K5HqYJAMQGTYpW+OxIbqjWrUFQ/wPcGVZQYYY8g7pasZ0DZ
+PtvAajUSKIj1JceH5AxKTPQSjYKZOd5nohm6U8iVZBx/jrVLnQLGLJW8DDDxtLsO
+TAcNh7hP8v9utnyxeHDobTgzFRor8p3NvFp3YDje2I3rZ/XWUny2xuw5fi1bXXDs
+fcgVge9cdxQ8CpKpEUSDIw2FoFb5IYlBAQQkbRFemwAxeIp7gsMqx5cilDbitD/v
+AfPBU19WNAsQOLlGn4RUejRgyUEntxGSoDzupizrl5Oe539shUEWfvhsL8oGgmxD
+X5UX5b/9qy7BPBJ5KyK9s25Fju+3VwIDAQABo4GmMIGjMAkGA1UdEwQCMAAwHQYD
+VR0OBBYEFIsehtPh1euDN+qFqzJ9MuZUAc20MEIGA1UdIwQ7MDmAFPyp73OA5yHS
+v7TWoX50AkA1LJbNoRakFDASMRAwDgYDVQQDDAdPcmNhIENBggkApvv6ZYxCi1gw
+EwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMBEGA1UdEQQKMAiCBnNl
+cnZlcjANBgkqhkiG9w0BAQsFAAOCAQEAjF8Oub6nM0pTn9hueiQO3Vcm4T2XHeq9
+/mXpEzlmrZKHi5/AMgOTqAkXp/sa8HMMXsjc9HdpVI4xoeSdynWj2Tq/EwCyrWb5
+Nlpms5pEzcaXJqb69ejTreguC8CJfJ+3P8vC257pgwD6UHn9l7CaPSclJCaKx0zD
++yxBxlWykYGdCEwFRuuzffz5RYZ3+Tb1S+3bRmTYefNLi83XxbJdBsfj5QYcKx5V
+97qo6NoYxf3WxgXROtN27QizCQt2rsXJ9UCU9o6Welfku+1Q2QTHFDtbFeELC6j2
+Su2GPrb1TdD+xOCbEtvP6pVtmqKjhdrC1389i75OmHuW8fc2CCWDNA==
+-----END CERTIFICATE-----
