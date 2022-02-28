@@ -62,3 +62,59 @@ module "eks" {
     Terraform   = "true"
   }
 }
+
+# Add RDS (Postgres)
+module "db_default" {
+  source = "terraform-aws-modules/rds/aws"
+
+  identifier = "myrds"
+
+  create_db_option_group    = false
+  create_db_parameter_group = false
+
+  engine               = "postgres"
+  engine_version       = "14.1"
+  family               = "postgres14"
+  major_engine_version = "14"
+  instance_class       = "db.m5.large"
+
+  allocated_storage = 10
+
+  db_name  = "mydb"
+  username = "candidate"
+  port     = 5432
+
+  vpc_security_group_ids = [module.rds_sg.security_group_id]
+  create_db_subnet_group = true
+  subnet_ids             = ["subnet-0c934be6f825a47db", "subnet-00ecb50e9edd3b21c", "subnet-03d86d12dcda887c8"]
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
+
+# Security group for RDS access
+module "rds_sg" {
+  source  = "terraform-aws-modules/security-group/aws"
+
+  name        = "allow-rds"
+  description = "Complete PostgreSQL security group"
+  vpc_id      = "vpc-028f1b3bd83e11f42"
+
+  # ingress
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 5432
+      to_port     = 5432
+      protocol    = "tcp"
+      description = "PostgreSQL access from within VPC"
+      cidr_blocks = module.vpc.vpc_cidr_block
+    },
+  ]
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
