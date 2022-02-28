@@ -86,6 +86,30 @@ module "eks" {
       type             = "egress"
       cidr_blocks      = ["10.0.0.0/16"]
     }
+    ingress_nginx_admission_controller = {
+      description      = "Ingress to Nginx admission controller"
+      protocol         = "tcp"
+      from_port        = 8443
+      to_port          = 8443
+      type             = "ingress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
+    ingress_app = {
+      description      = "Allow traffic to app pods"
+      protocol         = "tcp"
+      from_port        = 5000
+      to_port          = 5000
+      type             = "ingress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
+    egress_app = {
+      description      = "Allow traffic to app pods"
+      protocol         = "tcp"
+      from_port        = 5000
+      to_port          = 5000
+      type             = "egress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
   }
 
   tags = {
