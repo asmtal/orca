@@ -57,6 +57,37 @@ module "eks" {
     }
   }
 
+  cluster_security_group_additional_rules = {
+    ingress_api_control_plane = {
+      description                = "Allow 443 ingress to control plane"
+      protocol                   = "tcp"
+      from_port                  = 443
+      to_port                    = 443
+      type                       = "ingress"
+      source_node_security_group = false
+      cidr_blocks                = ["10.0.0.0/16"]
+    }
+  }
+
+  node_security_group_additional_rules = {
+    egress_http = {
+      description      = "Node http egress"
+      protocol         = "tcp"
+      from_port        = 80
+      to_port          = 80
+      type             = "egress"
+      cidr_blocks      = ["0.0.0.0/0"]
+    }
+    egress_pgsql = {
+      description      = "Node pgsql egress"
+      protocol         = "tcp"
+      from_port        = 5432
+      to_port          = 5432
+      type             = "egress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
+  }
+
   tags = {
     Environment = "dev"
     Terraform   = "true"
