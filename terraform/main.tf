@@ -23,3 +23,42 @@ module "vpc" {
     Environment = "dev"
   }
 }
+
+# Create EKS cluster
+module "eks" {
+  source = "terraform-aws-modules/eks/aws"
+
+  cluster_name                    = "my-cluster"
+  cluster_version                 = "1.21"
+  cluster_endpoint_private_access = true
+  cluster_endpoint_public_access  = false
+
+  cluster_addons = {
+    coredns = {}
+    kube-proxy = {}
+    vpc-cni = {}
+  }
+
+  vpc_id     = "vpc-028f1b3bd83e11f42"
+  subnet_ids = ["subnet-0c934be6f825a47db", "subnet-00ecb50e9edd3b21c", "subnet-03d86d12dcda887c8"]
+
+  # EKS Managed Node Group(s)
+  eks_managed_node_group_defaults = {
+    ami_type               = "AL2_x86_64"
+    disk_size              = 50
+    instance_types         = ["m5a.large"]
+  }
+
+  eks_managed_node_groups = {
+    default-pool = {
+      min_size     = 1
+      max_size     = 5
+      desired_size = 3
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+    Terraform   = "true"
+  }
+}
