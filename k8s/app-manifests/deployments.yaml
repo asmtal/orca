@@ -5,12 +5,11 @@ metadata:
   labels:
     app: my-app
 spec:
-  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 35%
-      maxSurge: 35%
+      maxUnavailable: 30%
+      maxSurge: 30%
   selector:
     matchLabels:
       app: my-app
@@ -21,7 +20,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: 904627253972.dkr.ecr.eu-central-1.amazonaws.com/my-app:v1.0
+        image: 904627253972.dkr.ecr.eu-central-1.amazonaws.com/my-app:v1.52
         ports:
         - containerPort: 5000
         env:
@@ -42,3 +41,10 @@ spec:
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 15
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 200m
+            memory: 200Mi

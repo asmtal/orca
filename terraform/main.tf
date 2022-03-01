@@ -71,75 +71,19 @@ module "eks" {
   }
 
   node_security_group_additional_rules = {
-    egress_http = {
-      description      = "Node http egress"
+    full_ingress = {
+      description      = "Full interconnection"
       protocol         = "tcp"
-      from_port        = 80
-      to_port          = 80
-      type             = "egress"
-      cidr_blocks      = ["0.0.0.0/0"]
-    }
-    egress_pgsql = {
-      description      = "Node pgsql egress"
-      protocol         = "tcp"
-      from_port        = 5432
-      to_port          = 5432
-      type             = "egress"
-      cidr_blocks      = ["10.0.0.0/16"]
-    }
-    ingress_nginx_admission_controller = {
-      description      = "Ingress to Nginx admission controller"
-      protocol         = "tcp"
-      from_port        = 8443
-      to_port          = 8443
+      from_port        = 0
+      to_port          = 65535
       type             = "ingress"
       cidr_blocks      = ["10.0.0.0/16"]
     }
-    ingress_app = {
-      description      = "Allow traffic to app pods"
+    full_egress = {
+      description      = "Full interconnection"
       protocol         = "tcp"
-      from_port        = 5000
-      to_port          = 5000
-      type             = "ingress"
-      cidr_blocks      = ["10.0.0.0/16"]
-    }
-    egress_app = {
-      description      = "Allow traffic to app pods"
-      protocol         = "tcp"
-      from_port        = 5000
-      to_port          = 5000
-      type             = "egress"
-      cidr_blocks      = ["10.0.0.0/16"]
-    }
-    ingress_jenkins_svc = {
-      description      = "Jenkins internode communications"
-      protocol         = "tcp"
-      from_port        = 8080
-      to_port          = 8080
-      type             = "ingress"
-      cidr_blocks      = ["10.0.0.0/16"]
-    }
-    egress_jenkins_svc = {
-      description      = "Jenkins internode communications"
-      protocol         = "tcp"
-      from_port        = 8080
-      to_port          = 8080
-      type             = "egress"
-      cidr_blocks      = ["10.0.0.0/16"]
-    }
-    ingress_jenkins_agent = {
-      description      = "Jenkins internode communications"
-      protocol         = "tcp"
-      from_port        = 50000
-      to_port          = 50000
-      type             = "ingress"
-      cidr_blocks      = ["10.0.0.0/16"]
-    }
-    egress_jenkins_agent = {
-      description      = "Jenkins internode communications"
-      protocol         = "tcp"
-      from_port        = 50000
-      to_port          = 50000
+      from_port        = 0
+      to_port          = 65535
       type             = "egress"
       cidr_blocks      = ["10.0.0.0/16"]
     }
