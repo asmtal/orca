@@ -1,0 +1,4 @@
+[submodule "k8s/monitoring"]
+	path = k8s/monitoring
+	url = https://github.com/prometheus-operator/kube-prometheus.git
+	branch = release-0.9
