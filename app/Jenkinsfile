@@ -79,8 +79,10 @@ pipeline {
     stage('Build and tag docker image') {
       steps {
         container('docker') {
-          sh 'docker build -t my-app .'
-          sh "docker tag my-app:latest ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/my-app:${MAJOR_VERSION}.${BUILD_NUMBER}"
+          dir('app') {
+            sh 'docker build -t my-app .'
+            sh "docker tag my-app:latest ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/my-app:${MAJOR_VERSION}.${BUILD_NUMBER}"
+          }
         }
       }
     }
