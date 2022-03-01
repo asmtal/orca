@@ -44,9 +44,10 @@ module "eks" {
 
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
-    ami_type               = "AL2_x86_64"
-    disk_size              = 50
-    instance_types         = ["m5a.large"]
+    ami_type                     = "AL2_x86_64"
+    disk_size                    = 50
+    instance_types               = ["m5a.large"]
+    iam_role_additional_policies = ["arn:aws:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"]
   }
 
   eks_managed_node_groups = {
@@ -107,6 +108,38 @@ module "eks" {
       protocol         = "tcp"
       from_port        = 5000
       to_port          = 5000
+      type             = "egress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
+    ingress_jenkins_svc = {
+      description      = "Jenkins internode communications"
+      protocol         = "tcp"
+      from_port        = 8080
+      to_port          = 8080
+      type             = "ingress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
+    egress_jenkins_svc = {
+      description      = "Jenkins internode communications"
+      protocol         = "tcp"
+      from_port        = 8080
+      to_port          = 8080
+      type             = "egress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
+    ingress_jenkins_agent = {
+      description      = "Jenkins internode communications"
+      protocol         = "tcp"
+      from_port        = 50000
+      to_port          = 50000
+      type             = "ingress"
+      cidr_blocks      = ["10.0.0.0/16"]
+    }
+    egress_jenkins_agent = {
+      description      = "Jenkins internode communications"
+      protocol         = "tcp"
+      from_port        = 50000
+      to_port          = 50000
       type             = "egress"
       cidr_blocks      = ["10.0.0.0/16"]
     }
