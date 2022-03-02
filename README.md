@@ -1,7 +1,6 @@
 # Orca exercise
 
 This is a short summary on how to connect to infrastructure and check the results of work.
-Results are uploaded to GitHub repository
 
 ## Connecting
 
@@ -17,18 +16,18 @@ export AWS_DEFAULT_REGION=eu-central-1
 - All internal resources were deployed in private subnets. You need to use VPN to access them.
 - [AWS Client VPN](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html) was configured to access the resources.
 - You can use VPN clients like [OpenVPN](https://openvpn.net/community-downloads/) or [Tunnelblick](https://tunnelblick.net/).
-- VPN configuration file (**orca.ovpn**) is situated in archive (**certs.zip**) with other confidential files.
+- VPN configuration file **orca.ovpn** is situated in archive **certs.zip**
 
 3. Temporary modifiying **/etc/hosts** file.
 There is no separate domain for this project, that's why local modification of */etc/hosts* file was used.
-All external resources are accessible via [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) with public endpoint (aee2ae41455eb4809ae6d15bc65a3ae9-d830fe0131adb23e.elb.eu-central-1.amazonaws.com) which resolves to 3 public IP-addresses (52.28.44.71, 3.122.160.121, 52.58.5.115). Please add one line to your /etc/hosts file to check the results of exercise. Your file may look like that:
+All external resources are accessible via [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) with public endpoint (**aee2ae41455eb4809ae6d15bc65a3ae9-d830fe0131adb23e.elb.eu-central-1.amazonaws.com**) which resolves to 3 public IP-addresses (**52.28.44.71, 3.122.160.121, 52.58.5.115**). Please add one line to your */etc/hosts* file to check the results of exercise. Your file may look like that:
 ```
 ...
 3.122.160.121 app.example.com jenkins.example.com argo.example.com grafana.example.com
 ...
 ```
 
-4. Update kubeconfig file to connect to EKS cluster
+4. Update kubeconfig file to connect to EKS cluster.
 ```
 aws eks --region eu-central-1 update-kubeconfig --name my-cluster```
 ```
@@ -42,14 +41,19 @@ aws eks --region eu-central-1 update-kubeconfig --name my-cluster```
 - Jenkinsfile for CI/CD process
 
 2. **/k8s**:
-|- *app-manifests* - k8s resources to deploy the application, ingress manifests
-|- *argocd* - k8s resources to deploy [ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/)
-|- *ingress-controller* - k8s resources to deploy [Nginx Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/#aws)
-|- *jenkins-k8s* - k8s resources to deploy [Jenkins](https://www.jenkins.io/doc/book/installing/kubernetes/#install-jenkins-with-helm-v3)
-|- *monitoring* - Git submodule to deploy [Kube-Prometheus](https://github.com/prometheus-operator/kube-prometheus)
+- *./app-manifests* - k8s resources to deploy the application, ingress manifests
+- *./argocd* - k8s resources to deploy [ArgoCD](https://argo-cd.readthedocs.io/en/stable/getting_started/)
+- *./ingress-controller* - k8s resources to deploy [Nginx Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/#aws)
+- *./jenkins-k8s* - k8s resources to deploy [Jenkins](https://www.jenkins.io/doc/book/installing/kubernetes/#install-jenkins-with-helm-v3)
+- *./monitoring* - Git submodule to deploy [Kube-Prometheus](https://github.com/prometheus-operator/kube-prometheus)
 
 3. **/terraform**:
-- IaC to deploy the components
+- IaC to deploy the components of infrastructure
+```
+terraform init
+terraform plan
+terraform apply
+```
 
 ## Architecture and component details
 
@@ -93,8 +97,18 @@ aws eks --region eu-central-1 update-kubeconfig --name my-cluster```
 - Grafana can be accessed using the following URL: http://grafana.example.com/dashboards
 - credential are situated in **creds.txt** file
 
+## Strategy and sequencing
+
+### Strategy
+[Kubernetes](https://kubernetes.io/) was chosen as it provides robust and scalable approach to run the application. RDS is a good choice since it is easy to deploy and maintain. Application is deployed to k8s using [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) resource with RollingUpdate deployment strategy (maxUnavailable: 30%, maxSurge: 30%) which provides gradual upgrade from one app version to another. Application is deployed in k8s with [HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) to provide autoscaling under heavy load. Jenkins and ArgoCD provide automatic build and deploy tools to reduce the time of app delivery.
+
+### Sequencing
+1. Developer pushes code to Git repository.
+2. Automatic build is triggered to build the application, package it and push to container registry.
+3. Automatic sync is triggered to deploy the application to k8s.
+
 ## Summary
-Application is deployed in HA mode. It is automatically scalable, redundant, embraces GitOps approach and automatic building/deployment processes.
+Application is deployed in HA mode. It is automatically scalable, observable, redundant, embraces GitOps approach and automatic building/deployment processes.
 
 ## What else can be improved
 - add tests for CI/CD process
