@@ -19,8 +19,9 @@ export AWS_DEFAULT_REGION=eu-central-1
 - VPN configuration file **orca.ovpn** is situated in archive **certs.zip**
 
 3. Temporary modifiying **/etc/hosts** file.
-There is no separate domain for this project, that's why local modification of */etc/hosts* file was used.
-All external resources are accessible via [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) with public endpoint (**aee2ae41455eb4809ae6d15bc65a3ae9-d830fe0131adb23e.elb.eu-central-1.amazonaws.com**) which resolves to 3 public IP-addresses (**52.28.44.71, 3.122.160.121, 52.58.5.115**). Please add one line to your */etc/hosts* file to check the results of exercise. Your file may look like that:
+
+There is no separate domain for this project, that's why local modification of **/etc/hosts** file was used.
+All external resources are accessible via [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) with public endpoint (**aee2ae41455eb4809ae6d15bc65a3ae9-d830fe0131adb23e.elb.eu-central-1.amazonaws.com**) which resolves to 3 public IP-addresses (**52.28.44.71, 3.122.160.121, 52.58.5.115**). Please add one line to your **/etc/hosts** file to check the results of exercise. Your file may look like that:
 ```
 ...
 3.122.160.121 app.example.com jenkins.example.com argo.example.com grafana.example.com
@@ -29,7 +30,7 @@ All external resources are accessible via [NLB](https://docs.aws.amazon.com/elas
 
 4. Update kubeconfig file to connect to EKS cluster.
 ```
-aws eks --region eu-central-1 update-kubeconfig --name my-cluster```
+aws eks --region eu-central-1 update-kubeconfig --name my-cluster
 ```
 
 ## Repository contents
@@ -76,19 +77,19 @@ terraform apply
 - credential are situated in **creds.txt** file
 
 **App**
-- after modifying */etc/hosts* file application can accessed using the following URL: http://app.example.com/
+- after modifying **/etc/hosts** file application can accessed using the following URL: http://app.example.com/
 
 **Building image**
 - image is automatically built and pushed to [ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) using Jenkins pipeline
 - Jenkins can be accessed with the following URL: http://jenkins.example.com/job/orca/job/main/
-- Jenkins builds */app* directory
+- Jenkins builds **/app** directory
 - credential are situated in **creds.txt** file
 - no webhook configured for pipeline, please start build manually
 
 **Deploying app**
 - application is automatically deployed using ArgoCD
 - ArgoCD can be accessed using the following URL: https://argo.example.com/
-- ArgoCD uses GitOps approach and performs sync of */k8s/app-manifests* directory with actual application state
+- ArgoCD uses GitOps approach and performs sync of **/k8s/app-manifests** directory with actual application state
 - credential are situated in **creds.txt** file
 - no webhook configured for pipeline, please start sync manually
 
@@ -100,7 +101,7 @@ terraform apply
 ## Strategy and sequencing
 
 ### Strategy
-[Kubernetes](https://kubernetes.io/) was chosen as it provides robust and scalable approach to run the application. RDS is a good choice since it is easy to deploy and maintain. Application is deployed to k8s using [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) resource with RollingUpdate deployment strategy (maxUnavailable: 30%, maxSurge: 30%) which provides gradual upgrade from one app version to another. Application is deployed in k8s with [HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) to provide autoscaling under heavy load. Jenkins and ArgoCD provide automatic build and deploy tools to reduce the time of app delivery.
+[Kubernetes](https://kubernetes.io/) was chosen as it provides robust and scalable approach to run the application. RDS is a good choice since it is easy to deploy and maintain. Application is deployed to k8s using [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) resource with resource limitation and RollingUpdate deployment strategy (maxUnavailable: 30%, maxSurge: 30%) which provides gradual upgrade from one app version to another. Application is deployed to k8s with [HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) to provide autoscaling under heavy load. Jenkins and ArgoCD provide automatic build and deploy tools to reduce the time of app delivery.
 
 ### Sequencing
 1. Developer pushes code to Git repository.
