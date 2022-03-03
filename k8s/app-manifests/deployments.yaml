@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: 904627253972.dkr.ecr.eu-central-1.amazonaws.com/my-app:v1.1
+        image: 904627253972.dkr.ecr.eu-central-1.amazonaws.com/my-app:v1.2
         ports:
         - containerPort: 5000
         env:
